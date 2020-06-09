@@ -1,0 +1,76 @@
+<div class="page-sidebar" id="sidebar" th:fragment="sidebar">
+                <!-- Page Sidebar Header-->
+                <div class="sidebar-header-wrapper">
+                    <input class="searchinput" type="text">
+                    <i class="searchicon fa fa-search"></i>
+                    <div class="searchhelper">正在开发中 搜索功能尚未实现...</div>
+                </div>
+                <!-- /Page Sidebar Header -->
+                
+                <!-- Sidebar Menu -->
+                <ul class="nav sidebar-menu">
+                
+                    <!--Dashboard-->
+                     <li>
+				        <a href="#" class="menu-dropdown">
+				            <i class="menu-icon fa fa-home"></i>
+				            <span class="menu-text">首页</span>
+				            <i class="menu-expand"></i>
+				        </a>
+				        <ul class="submenu">
+				            <li>
+				            <a th:href="@{index.html}">
+                                <span class="menu-text">首页 </span>
+				                <i class="menu-expand"></i>
+				            </a>
+				            </li>
+				        </ul>
+			        </li>
+				                    
+                    
+                    <li>
+                        <a href="#" class="menu-dropdown">
+                            <i class="menu-icon fa fa-user"></i>
+                            <span class="menu-text">管理员</span>
+                            <i class="menu-expand"></i>
+                        </a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="/OnlineBookstore/view/admin/admin/add.jsp">
+                                    <span class="menu-text">管理员添加</span>
+                                    <i class="menu-expand"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{lst}">
+                                    <span class="menu-text">管理员列表</span>
+                                    <i class="menu-expand"></i>
+                                </a>
+                            </li>
+                        </ul>                            
+                    </li>
+                    
+                    <li>
+                        <a href="#" class="menu-dropdown">
+                            <i class="menu-icon fa fa-folder"></i>
+                            <span class="menu-text">客户管理</span>
+                            <i class="menu-expand"></i>
+                        </a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="/OnlineBookstore/CateAdd">
+                                    <span class="menu-text">添加客户</span>
+                                    <i class="menu-expand"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/OnlineBookstore/CateLst">
+                                    <span class="menu-text">客户列表</span>
+                                    <i class="menu-expand"></i>
+                                </a>
+                            </li>
+                        </ul>                            
+                    </li>
+                </ul>
+                <!-- /Sidebar Menu -->
+            </div>

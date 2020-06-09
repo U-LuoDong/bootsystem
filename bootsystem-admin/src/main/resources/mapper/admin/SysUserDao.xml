@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nsu.bootsystem.admin.dao.SysUserDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.nsu.bootsystem.admin.entity.SysUserEntity" id="sysUserMap">
+        <result property="userId" column="user_id"/>
+        <result property="userCode" column="user_code"/>
+        <result property="userName" column="user_name"/>
+        <result property="userPassword" column="user_password"/>
+        <result property="userState" column="user_state"/>
+    </resultMap>
+    <update id="changeUserState">
+        update sys_user set user_state = #{userState} where user_id = #{userId}
+    </update>
+    <select id="queryByUserName" resultType="com.nsu.bootsystem.admin.entity.SysUserEntity">
+        select * from sys_user where user_name = #{userName}
+    </select>
+
+</mapper>

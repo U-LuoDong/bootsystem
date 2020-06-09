@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>后台管理系统</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link th:href="@{admin/style/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{admin/style/font-awesome.css}" rel="stylesheet">
+    <link th:href="@{admin/style/weather-icons.css}" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" th:href="@{admin/style/beyond.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{admin/style/demo.css}"  rel="stylesheet">
+    <link th:href="@{admin/style/typicons.css}"  rel="stylesheet">
+    <link th:href="@{admin/style/animate.css}" rel="stylesheet">
+    <script th:src="@{admin/style/jquery_002.js}"></script>
+    <script th:src="@{admin/plus/layer/layer.js}"></script>
+    <script th:src="@{admin/plus/uploadify/jquery.uploadify.min.js}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#uploadify").uploadify({
+                //指定swf文件
+                'swf': "admin/plus/uploadify/uploadify.swf",
+                //后台处理的页面
+                //'uploader': "{:url('Article/upimg')}",
+                //bookId=0:标识为add页面
+                'uploader': "Upimg?userId=0",
+                'progressData' : 'speed',
+                //按钮显示的文字
+                'buttonText': '上传文件',
+                //按钮样式
+                'buttonClass': 'btn btn-azure',
+                //显示的高度和宽度，默认 height 30；width 120
+                //'height': 15,
+                //'width': 80,
+                //上传文件的类型  默认为所有文件    'All Files'  ;  '*.*'
+                //在浏览窗口底部的文件类型下拉菜单中显示的文本
+                'fileTypeDesc': 'Image Files',
+                //设定发送数据的name值
+                'fileObjName':'thumb',
+                'formData' : { 'mark' : 'uploadify'},//解决使用flash来处理文件上传session问题
+                'sizeLimit': 10240,//限制大小
+                //允许上传的文件后缀
+                'onUploadSuccess' : function(file,data,response){
+                    setTimeout(function () {
+                        $("input[name='thumb']").val(data);
+                        var imgsrc=data;
+                        var img="<img height='100' src='/OnlineBookstore/upload/"+imgsrc+"'>";
+                        $("#imgdiv").show();
+                        $("#litpic").html(img);//会进行覆盖
+                        $("#sc").hide();
+                    }, 3000);
+                }
+            });
+            $("#uploadify-button").prepend("<i style='padding-right:4px;' class='fa fa-upload'></i>");
+            $("#uploadify-button").removeAttr('style');
+        });
+    </script>
+
+
+
+</head>
+<body>
+<!-- 头部 -->
+<div th:replace="public/top::topbar"></div>
+<!-- /头部 -->
+
+<div class="main-container container-fluid">
+    <div class="page-container">
+        <!-- Page Sidebar -->
+        <div th:replace="public/left::sidebar"></div>
+        <!-- /Page Sidebar -->
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Page Breadcrumb -->
+            <div class="page-breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">系统</a>
+                    </li>
+                    <li>
+                        <a href="/OnlineBookstore/AdminLst">管理员管理</a>
+                    </li>
+                    <li class="active">添加管理员</li>
+                </ul>
+            </div>
+            <!-- /Page Breadcrumb -->
+
+            <!-- Page Body -->
+            <div class="page-body">
+
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-header bordered-bottom bordered-blue">
+                                <span class="widget-caption">新增管理员</span>
+                            </div>
+                            <div class="widget-body">
+                                <div id="horizontal-form">
+                                    <form class="form-horizontal" role="form" action="/OnlineBookstore/AdminAdd"
+                                          method="POST">
+                                        <div class="form-group">
+                                            <label for="userName"
+                                                   class="col-sm-2 control-label no-padding-right">管理员名称</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" id="userName" placeholder="" name="userName" required=""
+                                                       type="text">
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password" id="password"
+                                                   class="col-sm-2 control-label no-padding-right">管理员密码</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" placeholder="" required="" name="password"
+                                                       type="password">
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="password"
+                                                   class="col-sm-2 control-label no-padding-right">确认密码</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" placeholder="" required="" name="confirmPas"
+                                                       type="password">
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label no-padding-right">头像</label>
+                                            <div class="col-sm-6">
+                                                <label id="sc">
+                                                    <span id="uploadify"></span>
+                                                    <!-- 隐藏域提交缩略图地址 只针对add，edit中不会提交这个字段-->
+                                                    <input name="thumb" required="" value="" type="hidden">
+                                                </label>
+                                                <label>
+                                                    <div id="cancel" style="float:left;" class="uploadify-button btn btn-azure">
+                                                        <span class="uploadify-button-text"><i style="padding-right:4px;" class="fa fa-rotate-left"></i>撤销上传</span>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+                                        <div class="form-group" id="imgdiv" style="display:none;">
+                                            <label class="col-sm-2 control-label no-padding-right"></label>
+                                            <div class="col-sm-6">
+                                                <label id="litpic">
+                                                </label>
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-default">保存信息</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /Page Body -->
+        </div>
+        <!-- /Page Content -->
+    </div>
+</div>
+
+<!--Basic Scripts-->
+<script th:src="@{admin/style/bootstrap.js}"></script>
+<!--Beyond Scripts-->
+<script th:src="@{admin/style/beyond.js}"></script>
+<script>
+    //有图片时：必须先删除才能上传新的图片
+    if ($("input[name='thumb']").val()) {
+        $("#sc").hide();//隐藏上传图片按钮
+    }
+    $("#cancel").click(function () {
+        var imgurl = $("input[name='thumb']").val();
+        if (!imgurl) {
+            layer.msg('请先上传图片！', {icon: 2});
+            return false;
+        }
+        layer.confirm('确定要撤销图片吗？', {icon: 3, title: '提示'}, function (index) {
+            $("#imgdiv").hide();
+            $("input[name='thumb']").val('');
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                data: {imgurl: imgurl,bookId:0},
+                url: "delimg",
+                success: function (data) {
+                    if (data == 1) {
+                        layer.msg('撤销成功！', {icon: 1});
+                        $("#sc").show();//显示上传图片按钮
+                    } else {
+                        layer.msg('撤销失败！', {icon: 2});
+                    }
+                }
+            });
+            layer.close(index);
+        });
+
+    });
+</script>
+</body>
+</html>

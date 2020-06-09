@@ -1,0 +1,24 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: admin_route
+          uri: lb://bootsystem-admin
+          predicates:
+            - Path=/admin/**
+          filters:
+            - RewritePath=/admin/(?<segment>.*),/$\{segment}
+
+        - id: customer_route
+          uri: lb://bootsystem-customer
+          predicates:
+            - Path=/customer/**
+          filters:
+            - RewritePath=/customer/(?<segment>.*),/$\{segment}
+
+        - id: third_party_route
+          uri: lb://customer-third-party
+          predicates:
+            - Path=/thirdparty/**
+          filters:
+            - RewritePath=/thirdparty/(?<segment>.*),/$\{segment}

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>后台管理系统</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link th:href="@{admin/style/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{admin/style/font-awesome.css}" rel="stylesheet">
+    <link th:href="@{admin/style/weather-icons.css}" rel="stylesheet">
+    <script th:src="@{admin/style/jquery_002.js}"></script>
+    <script th:src="@{admin/plus/layer/layer.js}"></script>
+
+    <!--Beyond styles-->
+    <link id="beyond-link" th:href="@{admin/style/beyond.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{admin/style/demo.css}"  rel="stylesheet">
+    <link th:href="@{admin/style/typicons.css}"  rel="stylesheet">
+    <link th:href="@{admin/style/animate.css}" rel="stylesheet">
+</head>
+<body>
+<!-- 头部 -->
+<div th:replace="public/top::topbar"></div>
+<!-- /头部 -->
+
+<div class="main-container container-fluid">
+    <div class="page-container">
+        <!-- Page Sidebar -->
+        <div th:replace="public/left::sidebar"></div>
+        <!-- /Page Sidebar -->
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Page Breadcrumb -->
+            <div class="page-breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">系统</a>
+                    </li>
+                    <li class="active">管理员管理</li>
+                </ul>
+            </div>
+            <!-- /Page Breadcrumb -->
+
+            <!-- Page Body -->
+            <div class="page-body">
+
+                <button type="button" tooltip="添加管理员" class="btn btn-sm btn-azure btn-addon"
+                        onClick="javascript:window.location.href = '/OnlineBookstore/view/admin/admin/add.jsp'"><i
+                        class="fa fa-plus"></i> Add
+                </button>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-body">
+                                <div class="flip-scroll">
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="">
+                                        <tr>
+                                            <th class="text-center" width="20%">ID</th>
+                                            <th class="text-center">管理员名称</th>
+                                            <th class="text-center" width="20%">状态</th>
+                                            <th class="text-center" width="20%">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="admin,iterStat : ${page.list}">
+                                            <td align="center" th:text="${admin.userId}"></td>
+                                            <td align="center" th:text="${admin.userName}"></td>
+                                            <td align="center">
+                                                <label>
+                                                    <!--四种情况 开始-->
+                                                    <!--1、是超级管理员，开启-->
+                                                    <input
+                                                            th:if="${admin.userId==1 && admin.userState==1}"
+                                                            th:id="${admin.userId}"
+                                                            disabled="disabled" checked="checked"
+                                                            onclick="changeuserState(this)" class="checkbox-slider
+                                                        colored-darkorange" type="checkbox">
+                                                    <!--2、不是超级管理员，开启-->
+                                                    <input
+                                                            th:unless="${admin.userId==1}"
+                                                            th:if="${admin.userState==1}"
+                                                            th:id="${admin.userId}"
+                                                            checked="checked"
+                                                            onclick="changeuserState(this)" class="checkbox-slider
+                                                        colored-darkorange" type="checkbox">
+                                                    <!--3、是超级管理员，关闭-->
+                                                    <input
+                                                            th:if="${admin.userId==1}"
+                                                            th:unless="${admin.userState==1}"
+                                                            th:id="${admin.userId}"
+                                                            disabled="disabled"
+                                                            onclick="changeuserState(this)" class="checkbox-slider
+                                                        colored-darkorange" type="checkbox">
+                                                    <!--4、不是超级管理员，关闭-->
+                                                    <input
+                                                            th:unless="${admin.userId==1 && admin.userState==1}"
+                                                            th:id="${admin.userId}"
+                                                            onclick="changeuserState(this)" class="checkbox-slider
+                                                        colored-darkorange" type="checkbox">
+                                                    <!--四种情况 关闭-->
+                                                    <span class="text" style="cursor:pointer;"></span>
+                                                </label>
+                                            </td>
+                                            <td align="center">
+                                                <a th:href="@{update?id=${admin.userId}}"
+                                                   class="btn btn-primary btn-sm shiny">
+                                                    <i class="fa fa-edit"></i> 编辑
+                                                </a>
+                                                <a th:id="${admin.userId}" href="javascript:void(0);"
+                                                   onClick="layerdel(this)" class="btn btn-danger btn-sm shiny">
+                                                    <i class="fa fa-trash-o"></i> 删除
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div th:replace="public/pagination::page"></div><!--将分页的页面包含-->
+
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /Page Body -->
+        </div>
+        <!-- /Page Content -->
+    </div>
+</div>
+
+<!--Basic Scripts-->
+<script th:src="@{admin/style/bootstrap.js}"></script>
+<!--Beyond Scripts-->
+<script th:src="@{admin/style/beyond.js}"></script>
+<script>
+    /**
+     * 异步修改管理员状态
+     */
+    function changeuserState(o) {
+        var id = $(o).attr('id');
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            data: {id: id},
+            url: "changeUserState",
+            success: function (data) {
+            }
+        });
+    }
+
+    //layer删除管理员
+    function layerdel(o) {
+        var id = $(o).attr("id");
+        layer.confirm('确定要删除该管理员吗？', {icon: 3, title: '提示'}, function (index) {
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                data: {userId: id},
+                url: "delete",
+                success: function (data) {
+                    location.reload();//刷新页面
+                }
+            });
+            layer.close(index);
+        });
+    }
+</script>
+
+
+</body>
+</html>

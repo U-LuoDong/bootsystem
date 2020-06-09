@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>后台管理系统</title>
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link th:href="@{admin/style/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{admin/style/font-awesome.css}" rel="stylesheet">
+    <link th:href="@{admin/style/weather-icons.css}" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" th:href="@{admin/style/beyond.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{admin/style/demo.css}"  rel="stylesheet">
+    <link th:href="@{admin/style/typicons.css}"  rel="stylesheet">
+    <link th:href="@{admin/style/animate.css}" rel="stylesheet">
+
+</head>
+<body>
+<!-- 头部 -->
+<div th:replace="public/top::topbar"></div>
+<!-- /头部 -->
+
+<div class="main-container container-fluid">
+    <div class="page-container">
+        <!-- Page Sidebar -->
+        <div th:replace="public/left::sidebar"></div>
+        <!-- /Page Sidebar -->
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Page Breadcrumb -->
+            <div class="page-breadcrumbs">
+                <ul class="breadcrumb">
+                    <li class="active">控制面板</li>
+                </ul>
+            </div>
+            <!-- /Page Breadcrumb -->
+
+            <!-- Page Body -->
+            <div class="page-body">
+                <div style="text-align:center; font-size:24px;">
+                    后台管理系统<br>
+                </div>
+                <!--轮播-->
+                <div id="myCarousel" class="carousel slide center" data-ride="carousel" data-interval="4000">
+                    <!-- 轮播（Carousel）项目 margin-left: 15%;-->
+                    <div class="carousel-inner">
+                        <div style="width: 770px;margin:0 auto;" class="item active">
+                            <img th:src="@{admin/img/iu1.jpg}" alt="First slide">
+                        </div>
+                        <div class="item" style="margin:0 auto;width: 770px;">
+                            <img th:src="@{admin/img/iu2.jpg}" alt="Third slide">
+                        </div>
+                        <div class="item" style="margin:0 auto;width: 770px;">
+                            <img th:src="@{admin/img/iu3.jpg}" alt="Third slide">
+                        </div>
+                        <div class="item" style="margin:0 auto;width: 770px;">
+                            <img th:src="@{admin/img/iu4.jpg}" alt="four slide">
+                        </div>
+                    </div>
+                    <!-- 轮播（Carousel）指标 -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        <li data-target="#myCarousel" data-slide-to="3"></li>
+                    </ol>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- /Page Body -->
+    </div>
+    <!-- /Page Content -->
+</div>
+</div>
+
+<!--Basic Scripts-->
+<script th:src="@{admin/style/jquery_002.js}"></script>
+<script th:src="@{admin/style/bootstrap.js}"></script>
+<script th:src="@{admin/style/jquery.js}"></script>
+<!--Beyond Scripts-->
+<script th:src="@{admin/style/beyond.js}"></script>
+</body>
+</html>

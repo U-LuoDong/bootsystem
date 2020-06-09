@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<div th:fragment="page"><!--定义用于被显示列表页包含-->
+    <head>
+        <style>
+            .page-item {
+                padding: 1px 5px;
+                border: 1px solid #afafaf;
+                margin-left: 3px
+            }
+
+            .page-item.active {
+                color: red;
+                border: 1px solid red;
+            }
+        </style>
+    </head>
+
+    <div style="float: left;padding-top:10px;" th:if="${page.totalPage>0}">
+        当前第<span th:text="${page.currPage}"></span>页,共<span
+            th:text="${page.totalPage}"></span>页,总记录数<span th:text="${page.totalCount}"></span>
+    </div>
+    <div style="float: right;padding-top:10px;" th:if="${page.totalPage>0}">
+        <a th:href="@{${jumpUrl}}" th:text="首页" th:if="${page.currPage>1}" th:class="page-item"></a>
+        <a th:href="@{${jumpUrl}+${page.currPage-1}}" th:text="上一页" th:class="page-item"
+           th:if="${page.currPage>1}"></a>
+        <a th:href="@{${jumpUrl}+ ${i}}"
+           th:each="i :${#numbers.sequence(1, page.totalPage)}" th:text="${i}"
+           th:class="${page.currPage == i}? 'page-item active' :'page-item' "></a>
+        <a th:href="@{${jumpUrl}+${page.currPage+1}}" th:text="下一页" th:class="page-item"
+           th:if="${page.currPage<page.totalPage}"></a>
+        <a th:href="@{${jumpUrl}+${page.totalPage}}" th:text="尾页" th:class="page-item"
+           th:if="${page.currPage<page.totalPage}"></a>
+    </div>
+    <div style="padding-top:30px; text-align:right;"></div>
+</div>
+</html>

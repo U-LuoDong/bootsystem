@@ -1,0 +1,24 @@
+package com.nsu.bootsystem.admin.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.nsu.common.utils.PageUtils;
+import com.nsu.bootsystem.admin.entity.SysUserEntity;
+
+import java.util.Map;
+
+/**
+ * 
+ *
+ * @author luodong
+ * @email helloluodong@qq.com
+ * @date 2020-06-08 08:54:10
+ */
+public interface SysUserService extends IService<SysUserEntity> {
+
+    PageUtils queryPage(Map<String, Object> params);
+
+    SysUserEntity queryByUserName(String userName);
+
+    void changeUserState(Integer userId,Integer userState);
+}
+

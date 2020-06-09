@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8" />
+	<title>用户登录</title>
+	<script type="text/javascript" th:src="@{webjars/jquery/3.4.1/jquery.js}"></script>
+	<link rel="stylesheet" th:href="@{admin/css/sign.css}" /><!--引入自己的CSS样式-->
+</head>
+<body>
+<div id="Layer"></div><!--遮罩层-->
+<div id="login">
+	<span th:if="${#strings.isEmpty(msg)}" id="login_span">登录</span>
+	<span id="msg_info" style="color: red" th:if="${not #strings.isEmpty(msg)}" th:text="${msg}"></span>
+	<br />
+	<h3>密码登陆</h3>
+	<div class="login_2">
+		<form onsubmit="return check()" th:action="@{loginRes}" method="POST">
+			<p>账号</p>
+			<P><input type="text" id="txt_1" placeholder="请输入您的手机号" onblur="checkemail()" name="userName" class="txt"><span id="txt_1info"></span></P>
+			<p>密码</p>
+			<P><input type="password" id="txt_2" placeholder="请输入密码" onblur="checkpassword()" name="userPassword" class="txt"><span id="txt_2info"></span></P>
+			<p><input type="checkbox" name="category" value="保持登陆状态" checked onclick="return false;"/>&nbsp;保持登陆状态</p>
+			<input type="submit" class="but" value="登陆" style="cursor: pointer;" />
+		</form>
+	</div>
+	<div class="login_3">
+		<ul>
+			<li>
+				<a href="javascript:void(0);">忘记密码</a>
+			</li>
+			<li>
+				<a href="javascript:void(0);">手机验证登录</a>
+			</li>
+		</ul>
+	</div>
+	<div class="login_4">
+		<p>使用社会化账号登陆：
+			<a href="javascript:void(0);"><img th:src="@{admin/img/QQ截图20180123204211.png}"></a>&nbsp&nbsp
+			<a href="javascript:void(0);"><img th:src="@{admin/img/35a85edf8db1cb1339d226a4dd54564e93584bc9.jpg}"></a>
+		</p>
+	</div>
+</div>
+</body>
+<script type="text/javascript" th:src="@{admin/js/sign.js}"></script><!--引入自己的JS-->
+</html>
