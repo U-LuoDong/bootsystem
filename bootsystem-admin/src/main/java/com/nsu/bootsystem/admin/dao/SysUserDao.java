@@ -19,4 +19,8 @@ public interface SysUserDao extends BaseMapper<SysUserEntity> {
     SysUserEntity queryByUserName(String userName);
 
     void changeUserState(@Param("userId") Integer userId, @Param("userState") Integer userState);
+
+    SysUserEntity queryByUserId(Integer userId);
+
+    void updateThumb(Integer userId,String thumb);
 }

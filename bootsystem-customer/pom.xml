@@ -19,9 +19,6 @@
         <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
-        <!-- 自己定义版本：布局功能的支持程序  thymeleaf3主程序要配套layout2以上版本 -->
-        <thymeleaf-layout-dialect.version>2.2.2</thymeleaf-layout-dialect.version>
     </properties>
 
     <dependencies>

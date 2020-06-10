@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nsu.bootsystem.customer.dao.CustomerDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.nsu.bootsystem.customer.entity.CustomerEntity" id="customerMap">
+        <result property="custId" column="cust_id"/>
+        <result property="custName" column="cust_name"/>
+        <result property="custUserId" column="cust_user_id"/>
+        <result property="custCreateId" column="cust_create_id"/>
+        <result property="custSource" column="cust_source"/>
+        <result property="custIndustry" column="cust_industry"/>
+        <result property="custLevel" column="cust_level"/>
+        <result property="custLinkman" column="cust_linkman"/>
+        <result property="custPhone" column="cust_phone"/>
+        <result property="custMobile" column="cust_mobile"/>
+        <result property="custZipcode" column="cust_zipcode"/>
+        <result property="custAddress" column="cust_address"/>
+        <result property="custCreatetime" column="cust_createtime"/>
+        <result property="state" column="state"/>
+    </resultMap>
+
+
+</mapper>

@@ -34,7 +34,18 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
     }
 
     @Override
+    public SysUserEntity queryByUserId(Integer userId) {
+        return baseMapper.queryByUserId(userId);
+    }
+
+    @Override
     public void changeUserState(Integer userId,Integer userState) {
         baseMapper.changeUserState(userId,userState);
     }
+
+    @Override
+    public void updateThumb(Integer userId,String thumb) {
+        baseMapper.updateThumb(userId,thumb);
+    }
+
 }

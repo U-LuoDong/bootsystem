@@ -19,6 +19,10 @@ public interface SysUserService extends IService<SysUserEntity> {
 
     SysUserEntity queryByUserName(String userName);
 
+    SysUserEntity queryByUserId(Integer userId);
+
     void changeUserState(Integer userId,Integer userState);
+
+    void updateThumb(Integer userId,String thumb);
 }
 

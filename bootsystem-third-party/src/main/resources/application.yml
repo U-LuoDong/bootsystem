@@ -12,7 +12,7 @@ spring:
 
 
   application:
-    name: gulimall-third-party
+    name: bootsystem-third-party
 
 server:
   port: 30000

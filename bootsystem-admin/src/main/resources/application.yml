@@ -8,6 +8,11 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+    alicloud:
+      access-key: LTAI4GAUbMxnfC6Jz9C8TDpa
+      secret-key: 0w3VJMxAMGawbGf1gXIAEtvSBHWrG6
+      oss:
+        endpoint: oss-cn-chengdu.aliyuncs.com
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
 # 禁用缓存
@@ -23,7 +28,7 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
 server:
-  port: 10000
+  port: 15000
   tomcat:
     uri-encoding: UTF-8
 logging:

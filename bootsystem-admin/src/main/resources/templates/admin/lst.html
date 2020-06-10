@@ -48,7 +48,7 @@
             <div class="page-body">
 
                 <button type="button" tooltip="添加管理员" class="btn btn-sm btn-azure btn-addon"
-                        onClick="javascript:window.location.href = '/OnlineBookstore/view/admin/admin/add.jsp'"><i
+                        onClick="javascript:window.location.href = 'add'"><i
                         class="fa fa-plus"></i> Add
                 </button>
                 <div class="row">
@@ -61,6 +61,7 @@
                                         <tr>
                                             <th class="text-center" width="20%">ID</th>
                                             <th class="text-center">管理员名称</th>
+                                            <th class="text-center">头像</th>
                                             <th class="text-center" width="20%">状态</th>
                                             <th class="text-center" width="20%">操作</th>
                                         </tr>
@@ -69,6 +70,11 @@
                                         <tr th:each="admin,iterStat : ${page.list}">
                                             <td align="center" th:text="${admin.userId}"></td>
                                             <td align="center" th:text="${admin.userName}"></td>
+                                            <td align="center">
+
+                                                <img th:if="${admin.thumb!=''}" th:src="@{https://gulimall-luodong.oss-cn-chengdu.aliyuncs.com/}+${admin.thumb}" height="30">
+                                                <span th:if="${admin.thumb==''}"> 暂无缩略图 </span>
+                                            </td>
                                             <td align="center">
                                                 <label>
                                                     <!--四种情况 开始-->
@@ -106,7 +112,7 @@
                                                 </label>
                                             </td>
                                             <td align="center">
-                                                <a th:href="@{update?id=${admin.userId}}"
+                                                <a th:href="@{edit?userId=}+${admin.userId}"
                                                    class="btn btn-primary btn-sm shiny">
                                                     <i class="fa fa-edit"></i> 编辑
                                                 </a>

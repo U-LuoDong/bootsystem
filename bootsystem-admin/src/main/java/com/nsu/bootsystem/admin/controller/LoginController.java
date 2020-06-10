@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
@@ -34,6 +33,8 @@ public class LoginController {
         session.setAttribute("loginUser",user.getUserName());
         //存储管理员id  用于头部修改信息
         session.setAttribute("adminId", user.getUserId());
+        //存储管理员thumb  用于头部修改信息
+        session.setAttribute("adminThumb", user.getThumb());
         return "redirect:http://localhost:88/admin/index.html";
     }
     //首页

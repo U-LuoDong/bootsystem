@@ -17,7 +17,7 @@ spring:
             - RewritePath=/customer/(?<segment>.*),/$\{segment}
 
         - id: third_party_route
-          uri: lb://customer-third-party
+          uri: lb://bootsystem-third-party
           predicates:
             - Path=/thirdparty/**
           filters:

@@ -64,7 +64,7 @@
                     <li>
                         <a th:href="@{lst}">管理员管理</a>
                     </li>
-                    <li class="active">添加管理员</li>
+                    <li class="active">修改管理员</li>
                 </ul>
             </div>
             <!-- /Page Breadcrumb -->
@@ -76,18 +76,19 @@
                     <div class="col-lg-12 col-sm-12 col-xs-12">
                         <div class="widget">
                             <div class="widget-header bordered-bottom bordered-blue">
-                                <span class="widget-caption">新增管理员</span>
+                                <span class="widget-caption">修改管理员</span>
                             </div>
                             <div class="widget-body">
                                 <div id="horizontal-form">
                                     <!-- 异步提交表单  -->
                                     <form class="form-horizontal" role="form" onsubmit="return false;">
+                                        <input type="hidden" id="userId" name="userId" th:value="${user.userId}">
                                         <div class="form-group">
                                             <label for="userName"
                                                    class="col-sm-2 control-label no-padding-right">管理员名称</label>
                                             <div class="col-sm-6">
                                                 <input class="form-control" id="userName" placeholder="" name="userName"
-                                                       
+                                                       th:value="${user.userName}"
                                                        type="text">
                                             </div>
                                             <p class="help-block col-sm-4 red">* 必填</p>
@@ -96,27 +97,15 @@
                                             <label for="userPassword"
                                                    class="col-sm-2 control-label no-padding-right">管理员密码</label>
                                             <div class="col-sm-6">
-                                                <input class="form-control" placeholder="" id="userPassword"  name="userPassword"
-                                                       type="password">
+                                                <input class="form-control" id="userPassword" placeholder="为空则不修改"
+                                                       name="userPassword" value="" type="text">
                                             </div>
-                                            <p class="help-block col-sm-4 red">* 必填</p>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="confirmPas"
-                                                   class="col-sm-2 control-label no-padding-right">确认密码</label>
-                                            <div class="col-sm-6">
-                                                <input class="form-control" placeholder=""  name="confirmPas" id="confirmPas"
-                                                       type="password">
-                                            </div>
-                                            <p class="help-block col-sm-4 red">* 必填</p>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label no-padding-right">头像</label>
                                             <div class="col-sm-6">
                                                 <label id="sc">
-                                                    <span id="uploadify"></span>
 
                                                     <div class="file-box">
                                                         <input type="file" value="" name="file" id="input_file"
@@ -124,32 +113,33 @@
                                                                onchange="imgPreview(this,0)">
                                                     </div>
 
-                                                    <!-- 隐藏域提交缩略图地址 只针对add，edit中不会提交这个字段-->
-                                                    <input id="thumb" name="thumb"  value="" type="hidden">
+                                                    <input id="hideSrc" th:value="${user.thumb}" type="hidden">
                                                 </label>
                                                 <label>
                                                     <div id="cancel" style="float:left;"
-                                                         class="uploadify-button btn btn-azure">
-                                                        <span class="uploadify-button-text"><i
-                                                                style="padding-right:4px;"
-                                                                class="fa fa-rotate-left"></i>撤销上传</span>
+                                                         class="uploadify-button btn btn-azure"><span
+                                                            class="uploadify-button-text"><i style="padding-right:4px;"
+                                                                                             class="fa fa-rotate-left"></i>撤销上传</span>
                                                     </div>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" id="imgdiv" style="display:none;">
-                                            <label class="col-sm-2 control-label no-padding-right"></label>
-                                            <div class="col-sm-6">
-                                                <label id="litpic">
                                                 </label>
                                             </div>
                                             <p class="help-block col-sm-4 red">* 必填</p>
                                         </div>
-
+                                        <div class="form-group" id="imgdiv" >
+                                            <label class="col-sm-2 control-label no-padding-right"></label>
+                                            <div class="col-sm-6">
+                                                <label id="litpic">
+                                                    <img th:if="${user.thumb!=''}" th:src="@{https://gulimall-luodong.oss-cn-chengdu.aliyuncs.com/}+${user.thumb}"
+                                                         height="100">
+                                                </label>
+                                            </div>
+                                        </div>
 
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="submit" onclick="submitForm()"  class="btn btn-default">保存信息</button>
+                                                <button type="submit" onclick="submitForm()" class="btn btn-default">
+                                                    保存信息
+                                                </button>
                                             </div>
                                         </div>
                                     </form>
@@ -199,7 +189,7 @@
                 if (!file) {
                     return;
                 }
-                request.append("key", `${uploadObj.dir}`+time+`${file.name}`); //文件名字，可设置路径
+                request.append("key", `${uploadObj.dir}` + time + `${file.name}`); //文件名字，可设置路径
                 request.append("success_action_status", '200'); // 让服务端返回200,不然，默认会返回204
                 request.append('file', file); //需要上传的文件 file
                 $.ajax({
@@ -215,15 +205,27 @@
                         // console.log(response);
                     },
                     error: function (error) {
-                        verifyImg = `${uploadObj.host}/${uploadObj.dir}`+time+`${file.name}`;
-                        verifyImg1 = `${uploadObj.dir}`+time+`${file.name}`;
-                        layer.msg('上传成功！', {icon: 1});
-                        $("input[name='thumb']").val(verifyImg1);//不要完整的路径
-                        var imgsrc=verifyImg;
-                        var img="<img height='100' src='"+imgsrc+"'>";
+                        verifyImg = `${uploadObj.host}/${uploadObj.dir}` + time + `${file.name}`;
+                        verifyImg1 = `${uploadObj.dir}` + time + `${file.name}`;
+                        $("#hideSrc").val(verifyImg1);//不要完整的路径
+                        var imgsrc = verifyImg;
+                        var img = "<img height='100' src='" + imgsrc + "'>";
                         $("#imgdiv").show();
                         $("#litpic").html(img);//会进行覆盖
                         $("#sc").hide();
+                        //上传成功之后更新表的数据
+                        var userId = $("#userId").val();
+                        $.ajax({
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                imgurl: verifyImg1,userId: userId
+                            },
+                            url: "upimg",
+                            success: function (data) {
+                                layer.msg('上传成功！', {icon: 1});
+                            }
+                        });
                     }
                 });
             },
@@ -236,22 +238,23 @@
 
 <script>
     //有图片时：必须先删除才能上传新的图片
-    if ($("input[name='thumb']").val()) {
+    if ($("#hideSrc").val()) {
         $("#sc").hide();//隐藏上传图片按钮
     }
     $("#cancel").click(function () {
-        var imgurl = $("input[name='thumb']").val();
+        var imgurl = $("#hideSrc").val();
         if (!imgurl) {
             layer.msg('请先上传图片！', {icon: 2});
             return false;
         }
-        layer.confirm('确定要撤销图片吗？', {icon: 3, title: '提示'}, function (index) {
+        var userId = $("#userId").val();
+        layer.confirm('确定要删除图片吗？', {icon: 3, title: '提示'}, function (index) {
             $("#imgdiv").hide();
-            $("input[name='thumb']").val('');
+            $("#hideSrc").val('');
             $.ajax({
                 type: "post",
                 dataType: "json",
-                data: {imgurl: imgurl, userId: 0},
+                data: {imgurl: imgurl, userId: userId},
                 url: "delimg",
                 success: function (data) {
                     if (data.data.res == 1) {
@@ -264,42 +267,44 @@
             });
             layer.close(index);
         });
-
     });
 </script>
 
 <!--异步提交表单-->
 <script>
-function submitForm() {
-    var userName = $("#userName").val();
-    var userPassword = $("#userPassword").val();
-    var confirmPas = $("#confirmPas").val();
-    var thumb = $("#thumb").val();
+    function submitForm() {
+        var userName = $("#userName").val();
+        var userPassword = $("#userPassword").val();
+        var userId = $("#userId").val();
 
-    $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        contentType: 'application/json; charset=UTF-8',
-        data: JSON.stringify({"userName": userName,"userPassword":userPassword,
-            "confirmPas":confirmPas,"thumb":thumb}),
-        url: "add",
-        success: function (data) {
-            //根据返回的状态码来判断
-            if(data.code == 10000 || data.code == 10001){
-                var info;
-                for (var key in data.data){
-                    info = data.data[key];
-                    break;
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json; charset=UTF-8',
+            data: JSON.stringify({
+                "userName": userName, "userPassword": userPassword
+                ,"userId": userId
+
+            }),
+            url: "edit",
+            success: function (data) {
+                //根据返回的状态码来判断
+                if (data.code == 10000 || data.code == 10001) {
+                    var info;
+                    for (var key in data.data) {
+                        info = data.data[key];
+                        break;
+                    }
+                    //失败提示失败信息【只提示第一个错误】
+                    layer.msg(info, {icon: 2});
+                } else {
+                    //成功跳转到lst页面
+                    window.location = "http://localhost:88/admin/lst";
                 }
-                //失败提示失败信息【只提示第一个错误】
-                layer.msg(info, {icon: 2});
-            }else{
-                //成功跳转到lst页面
-                window.location = "http://localhost:88/admin/lst";
             }
-        }
-    });
-}
+        });
+    }
 </script>
 </body>
 </html>

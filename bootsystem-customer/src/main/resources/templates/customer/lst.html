@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>后台管理系统</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link th:href="@{admin/style/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{admin/style/font-awesome.css}" rel="stylesheet">
+    <link th:href="@{admin/style/weather-icons.css}" rel="stylesheet">
+    <script th:src="@{admin/style/jquery_002.js}"></script>
+    <script th:src="@{admin/plus/layer/layer.js}"></script>
+
+    <!--Beyond styles-->
+    <link id="beyond-link" th:href="@{admin/style/beyond.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{admin/style/demo.css}"  rel="stylesheet">
+    <link th:href="@{admin/style/typicons.css}"  rel="stylesheet">
+    <link th:href="@{admin/style/animate.css}" rel="stylesheet">
+</head>
+<body>
+<!-- 头部 -->
+<div th:replace="public/top::topbar"></div>
+<!-- /头部 -->
+
+<div class="main-container container-fluid">
+    <div class="page-container">
+        <!-- Page Sidebar -->
+        <div th:replace="public/left::sidebar"></div>
+        <!-- /Page Sidebar -->
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Page Breadcrumb -->
+            <div class="page-breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">系统</a>
+                    </li>
+                    <li class="active">客户管理</li>
+                </ul>
+            </div>
+            <!-- /Page Breadcrumb -->
+
+            <!-- Page Body -->
+            <div class="page-body">
+
+                <button type="button" tooltip="添加管理员" class="btn btn-sm btn-azure btn-addon"
+                        onClick="javascript:window.location.href = '/customer/add'"><i
+                        class="fa fa-plus"></i> Add
+                </button>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-body">
+                                <div class="flip-scroll">
+
+                                    <div class="form-group">
+
+                                        <label for="custName" style="margin-top: 5px"
+                                               class="col-sm-1 control-label no-padding-right">客户名称:</label>
+                                        <div class="col-sm-2">
+                                            <input style="width: 140px;" class="form-control" id="custName" placeholder="搜索客户名称" type="text">
+                                        </div>
+
+                                        <label style="margin-top: 5px"  class="col-sm-1 control-label no-padding-right">客户来源:</label>
+                                        <div class="col-sm-2">
+                                            <select id="custSource">
+                                                <option>计算机科学与技术系</option>
+                                            </select>
+                                        </div>
+
+                                        <label style="margin-top: 5px"  class="col-sm-1 control-label no-padding-right">所属行业:</label>
+                                        <div class="col-sm-2">
+                                            <select id="custIndustry">
+                                                <option>计算机科学与技术系</option>
+                                            </select>
+                                        </div>
+
+                                        <div style="margin-top: 5px" class="col-sm-1">
+                                            <a href="#" class="btn btn-primary btn-sm shiny">
+                                                <i class="searchicon fa fa-search"></i> 查询
+                                            </a>
+                                        </div>
+
+                                    </div>
+
+                                    <div style="width: 20px;height:50px;"></div>
+
+                                    <table style="padding-top: 10px" class="table table-bordered table-hover">
+                                        <thead class="">
+                                        <tr>
+                                            <th class="text-center">创建人id</th>
+                                            <th class="text-center">客户名称</th>
+                                            <th class="text-center">客户来源</th>
+                                            <th class="text-center">客户所属行业</th>
+                                            <th class="text-center">联系人</th>
+                                            <th class="text-center">手机</th>
+                                            <th class="text-center">联系地址</th>
+                                            <th class="text-center" width="20%">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="customer,iterStat : ${page.list}">
+                                            <td align="center" th:text="${customer.custId}"></td>
+                                            <td align="center" th:text="${customer.custName}"></td>
+                                            <td align="center" th:text="${customer.custSource}"></td>
+                                            <td align="center" th:text="${customer.custIndustry}"></td>
+                                            <td align="center" th:text="${customer.custLinkman}"></td>
+                                            <td align="center" th:text="${customer.custMobile}"></td>
+                                            <td align="center" th:text="${customer.custAddress}"></td>
+                                            <td align="center">
+                                                <a th:href="@{edit?custId=}+${customer.custId}"
+                                                   class="btn btn-primary btn-sm shiny">
+                                                    <i class="fa fa-edit"></i> 编辑
+                                                </a>
+                                                <a th:id="${customer.custId}" href="javascript:void(0);"
+                                                   onClick="layerdel(this)" class="btn btn-danger btn-sm shiny">
+                                                    <i class="fa fa-trash-o"></i> 删除
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div th:replace="public/pagination::page"></div><!--将分页的页面包含-->
+
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /Page Body -->
+        </div>
+        <!-- /Page Content -->
+    </div>
+</div>
+
+<!--Basic Scripts-->
+<script th:src="@{admin/style/bootstrap.js}"></script>
+<!--Beyond Scripts-->
+<script th:src="@{admin/style/beyond.js}"></script>
+<script>
+    //layer删除客户
+    function layerdel(o) {
+        var id = $(o).attr("id");
+        layer.confirm('确定要删除该客户吗？', {icon: 3, title: '提示'}, function (index) {
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                data: {custId: id},
+                url: "delete",
+                success: function (data) {
+                    location.reload();//刷新页面
+                }
+            });
+            layer.close(index);
+        });
+    }
+</script>
+
+
+</body>
+</html>
