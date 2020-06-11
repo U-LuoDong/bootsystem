@@ -1,5 +1,6 @@
 package com.nsu.bootsystem.customer.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,13 +39,28 @@ public class CustomerController {
      */
     @RequestMapping("/lst")
     //@RequiresPermissions("admin:sysuser:list")
-    public String list(@RequestParam(required = false, defaultValue = "1", value = "pn") String pn, Model model){
+    public String list(@RequestParam(required = false, defaultValue = "1", value = "pn") String pn
+            ,@RequestParam(required = false, defaultValue = "", value = "custName") String custName
+            ,@RequestParam(required = false, defaultValue = "该项表示不对客户来源进行查询", value = "custSource")String custSource
+            ,@RequestParam(required = false, defaultValue = "该项表示不对所属行业进行查询", value = "custIndustry")String custIndustry
+            , Model model){
         Map<String, Object> params = new HashMap<String,Object>();
         params.put("page",pn);
         params.put("limit","10");//10条数据一页
-        PageUtils page = customerService.queryPage(params);
+        PageUtils page = customerService.queryPage(params,custName,custSource,custIndustry);
         model.addAttribute("page",page);
-        model.addAttribute("jumpUrl", "lst?pn=");
+//        model.addAttribute("jumpUrl", "lst?pn=");
+        model.addAttribute("custNamePage",custName);
+        model.addAttribute("custSourcePage",custSource);
+        model.addAttribute("custIndustryPage",custIndustry);
+        //1、客户来源
+        ArrayList<String> custSourcee = new ArrayList<String>();
+        custSourcee = customerService.queryCustSource();
+        //2、所属行业
+        ArrayList<String> custIndustryy = new ArrayList<String>();
+        custIndustryy = customerService.queryCustIndustry();
+        model.addAttribute("custSource",custSourcee);
+        model.addAttribute("custIndustry",custIndustryy);
         return "/customer/lst";
     }
 

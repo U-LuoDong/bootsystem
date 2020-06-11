@@ -20,6 +20,12 @@
         <result property="custCreatetime" column="cust_createtime"/>
         <result property="state" column="state"/>
     </resultMap>
+    <select id="queryCustSource" resultType="java.lang.String">
+        SELECT distinct  cust_source FROM `customer`
+    </select>
+    <select id="queryCustIndustry" resultType="java.lang.String">
+        SELECT distinct  cust_industry FROM `customer`
+    </select>
 
 
 </mapper>

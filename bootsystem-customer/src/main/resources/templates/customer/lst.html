@@ -66,21 +66,25 @@
                                         </div>
 
                                         <label style="margin-top: 5px"  class="col-sm-1 control-label no-padding-right">客户来源:</label>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-3">
                                             <select id="custSource">
-                                                <option>计算机科学与技术系</option>
+                                                <option>该项表示不对客户来源进行查询</option>
+                                                <option th:each="item,iterStat : ${custSource}" th:text="${item}">
+                                                </option>
                                             </select>
                                         </div>
 
                                         <label style="margin-top: 5px"  class="col-sm-1 control-label no-padding-right">所属行业:</label>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-3">
                                             <select id="custIndustry">
-                                                <option>计算机科学与技术系</option>
+                                                <option>该项表示不对所属行业进行查询</option>
+                                                <option th:each="item,iterStat : ${custIndustry}" th:text="${item}">
+                                                </option>
                                             </select>
                                         </div>
 
                                         <div style="margin-top: 5px" class="col-sm-1">
-                                            <a href="#" class="btn btn-primary btn-sm shiny">
+                                            <a href="#" onclick="query()" class="btn btn-primary btn-sm shiny">
                                                 <i class="searchicon fa fa-search"></i> 查询
                                             </a>
                                         </div>
@@ -163,6 +167,16 @@
             });
             layer.close(index);
         });
+    }
+</script>
+<script>
+    //查询实现
+    function query() {
+        var custName = $("#custName").val();
+        var custSource = $("#custSource").val();
+        var custIndustry = $("#custIndustry").val();
+        //拼接url【查询 默认返回第一页】
+        window.location = "http://localhost:88/customer/lst?custName="+custName+"&custSource="+custSource+"&custIndustry="+custIndustry;
     }
 </script>
 

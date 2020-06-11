@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.nsu.common.utils.PageUtils;
 import com.nsu.bootsystem.customer.entity.CustomerEntity;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -15,6 +16,10 @@ import java.util.Map;
  */
 public interface CustomerService extends IService<CustomerEntity> {
 
-    PageUtils queryPage(Map<String, Object> params);
+    PageUtils queryPage(Map<String, Object> params,String custName,String custSource,String custIndustry);
+
+    ArrayList<String> queryCustSource();
+
+    ArrayList<String> queryCustIndustry();
 }
 

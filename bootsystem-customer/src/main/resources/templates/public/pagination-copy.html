@@ -21,17 +21,15 @@
             th:text="${page.totalPage}"></span>页,总记录数<span th:text="${page.totalCount}"></span>
     </div>
     <div style="float: right;padding-top:10px;" th:if="${page.totalPage>0}">
-        <a th:href="@{lst?}+@{custName=}+${custNamePage}+@{&custSource=}+${custSourcePage}+@{&custIndustry=}+${custIndustryPage}"  th:text="首页" th:if="${page.currPage>1}" th:class="page-item"></a>
-        <a th:href="@{lst?pn=}+${page.currPage-1}+@{&custName=}+${custNamePage}+@{&custSource=}+${custSourcePage}+@{&custIndustry=}+${custIndustryPage}" th:text="上一页" th:class="page-item"
+        <a th:href="@{${jumpUrl}}"  th:href="@{lst?pn=}" th:text="首页" th:if="${page.currPage>1}" th:class="page-item"></a>
+        <a th:href="@{${jumpUrl}+${page.currPage-1}}" th:text="上一页" th:class="page-item"
            th:if="${page.currPage>1}"></a>
-        <a th:href="@{lst?pn=}+${i}+@{&custName=}+${custNamePage}+@{&custSource=}+${custSourcePage}+@{&custIndustry=}+${custIndustryPage}"
+        <a th:href="@{${jumpUrl}+ ${i}}"
            th:each="i :${#numbers.sequence(1, page.totalPage)}" th:text="${i}"
            th:class="${page.currPage == i}? 'page-item active' :'page-item' "></a>
-        <a th:href="@{lst?pn=}+${page.currPage+1}+@{&custName=}+${custNamePage}+@{&custSource=}+${custSourcePage}+@{&custIndustry=}+${custIndustryPage}"
-           th:text="下一页" th:class="page-item"
+        <a th:href="@{${jumpUrl}+${page.currPage+1}}" th:text="下一页" th:class="page-item"
            th:if="${page.currPage<page.totalPage}"></a>
-        <a th:href="@{lst?pn=}+${page.totalPage}+@{&custName=}+${custNamePage}+@{&custSource=}+${custSourcePage}+@{&custIndustry=}+${custIndustryPage}"
-           th:text="尾页" th:class="page-item"
+        <a th:href="@{${jumpUrl}+${page.totalPage}}" th:text="尾页" th:class="page-item"
            th:if="${page.currPage<page.totalPage}"></a>
     </div>
     <div style="padding-top:30px; text-align:right;"></div>

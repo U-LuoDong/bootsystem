@@ -4,6 +4,8 @@ import com.nsu.bootsystem.customer.entity.CustomerEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.ArrayList;
+
 /**
  * 
  * 
@@ -13,5 +15,8 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CustomerDao extends BaseMapper<CustomerEntity> {
-	
+
+    ArrayList<String> queryCustSource();
+
+    ArrayList<String> queryCustIndustry();
 }
