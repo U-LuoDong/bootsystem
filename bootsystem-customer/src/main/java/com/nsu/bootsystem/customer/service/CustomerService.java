@@ -18,7 +18,7 @@ public interface CustomerService extends IService<CustomerEntity> {
 
     PageUtils queryPage(Map<String, Object> params,String custName,String custSource,String custIndustry);
 
-    ArrayList<String> queryCustSource();
+    ArrayList<String> queryCustSource(); 
 
     ArrayList<String> queryCustIndustry();
 }

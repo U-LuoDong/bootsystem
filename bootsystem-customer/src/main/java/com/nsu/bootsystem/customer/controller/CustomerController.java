@@ -45,7 +45,7 @@ public class CustomerController {
             ,@RequestParam(required = false, defaultValue = "该项表示不对所属行业进行查询", value = "custIndustry")String custIndustry
             , Model model){
         Map<String, Object> params = new HashMap<String,Object>();
-        params.put("page",pn); 
+        params.put("page",pn);
         params.put("limit","10");//10条数据一页
         PageUtils page = customerService.queryPage(params,custName,custSource,custIndustry);
         model.addAttribute("page",page);
