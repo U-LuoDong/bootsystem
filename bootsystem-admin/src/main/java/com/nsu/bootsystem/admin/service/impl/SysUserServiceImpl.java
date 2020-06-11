@@ -48,4 +48,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
         baseMapper.updateThumb(userId,thumb);
     }
 
+    @Override
+    public boolean checkAccount(String userName) {
+        return baseMapper.checkAccount(userName);
+    }
+
 }

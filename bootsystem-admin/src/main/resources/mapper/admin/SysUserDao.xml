@@ -25,5 +25,8 @@
     <select id="queryByUserId" resultType="com.nsu.bootsystem.admin.entity.SysUserEntity">
         select * from sys_user where user_id = #{userId}
     </select>
+    <select id="checkAccount" resultType="java.lang.Boolean">
+        select * from sys_user where user_name = #{userName}
+    </select>
 
 </mapper>

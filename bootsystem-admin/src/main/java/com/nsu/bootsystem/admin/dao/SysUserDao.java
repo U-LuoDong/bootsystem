@@ -23,4 +23,6 @@ public interface SysUserDao extends BaseMapper<SysUserEntity> {
     SysUserEntity queryByUserId(Integer userId);
 
     void updateThumb(Integer userId,String thumb);
+
+    boolean checkAccount(String userName);
 }
