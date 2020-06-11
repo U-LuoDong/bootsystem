@@ -14,7 +14,7 @@
         <module>bootsystem-admin</module>
         <module>bootsystem-customer</module>
         <module>bootsystem-gateway</module>
-<!--        <module>bootsystem-third-party</module>-->
+        <module>bootsystem-third-party</module>
 <!--        <module>renren-generator</module>-->
     </modules>
 </project>

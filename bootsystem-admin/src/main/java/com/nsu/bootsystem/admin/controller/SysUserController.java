@@ -165,6 +165,6 @@ public class SysUserController {
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();
-        return "redirect:http://localhost:88/login";
+        return "redirect:http://localhost:88/admin/login";
     }
 }

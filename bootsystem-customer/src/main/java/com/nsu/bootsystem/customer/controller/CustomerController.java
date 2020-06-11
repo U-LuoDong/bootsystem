@@ -35,6 +35,12 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    //首页
+    @GetMapping("/index.html")
+    public String index(){
+        return "index/index";
+    }
+
     /**
      * 列表
      */
