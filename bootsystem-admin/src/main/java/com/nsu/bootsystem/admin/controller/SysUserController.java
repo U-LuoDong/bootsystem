@@ -167,39 +167,4 @@ public class SysUserController {
         session.invalidate();
         return "redirect:http://localhost:88/login";
     }
-
-
-    //未使用————————————————————————————————
-    /**
-     * 信息
-     */
-    @RequestMapping("/info/{userId}")
-    //@RequiresPermissions("admin:sysuser:info")
-    public R info(@PathVariable("userId") Integer userId){
-        SysUserEntity sysUser = sysUserService.getById(userId);
-
-        return R.ok().put("sysUser", sysUser);
-    }
-
-    /**
-     * 保存
-     */
-    @RequestMapping("/save")
-    //@RequiresPermissions("admin:sysuser:save")
-    public R save(@RequestBody SysUserEntity sysUser){
-        sysUserService.save(sysUser);
-        return R.ok();
-    }
-
-    /**
-     * 修改
-     */
-    @RequestMapping("/update")
-    //@RequiresPermissions("admin:sysuser:update")
-    public R update(@RequestBody SysUserEntity sysUser){
-        sysUserService.updateById(sysUser);
-
-        return R.ok();
-    }
-
 }

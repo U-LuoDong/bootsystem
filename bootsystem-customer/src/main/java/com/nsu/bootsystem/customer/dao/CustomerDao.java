@@ -19,4 +19,6 @@ public interface CustomerDao extends BaseMapper<CustomerEntity> {
     ArrayList<String> queryCustSource();
 
     ArrayList<String> queryCustIndustry();
+
+    CustomerEntity queryByUserId(Integer userId);
 }

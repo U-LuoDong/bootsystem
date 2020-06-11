@@ -74,4 +74,9 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerDao, CustomerEntity
         return  baseMapper.queryCustIndustry();
     }
 
+    @Override
+    public CustomerEntity queryByUserId(Integer userId) {
+        return baseMapper.queryByUserId(userId);
+    }
+
 }

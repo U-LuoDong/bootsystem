@@ -5,13 +5,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.nsu.common.exception.BizCodeEnume;
+import com.nsu.common.valid.AddGroup;
+import com.nsu.common.valid.UpdateGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import com.nsu.bootsystem.customer.entity.CustomerEntity;
 import com.nsu.bootsystem.customer.service.CustomerService;
@@ -64,48 +65,44 @@ public class CustomerController {
         return "/customer/lst";
     }
 
-
-    /**
-     * 信息
-     */
-    @RequestMapping("/info/{custId}")
-    //@RequiresPermissions("customer:customer:info")
-    public R info(@PathVariable("custId") Integer custId){
-		CustomerEntity customer = customerService.getById(custId);
-
-        return R.ok().put("customer", customer);
-    }
-
-    /**
-     * 保存
-     */
-    @RequestMapping("/save")
-    //@RequiresPermissions("customer:customer:save")
-    public R save(@RequestBody CustomerEntity customer){
-		customerService.save(customer);
-
-        return R.ok();
-    }
-
-    /**
-     * 修改
-     */
-    @RequestMapping("/update")
-    //@RequiresPermissions("customer:customer:update")
-    public R update(@RequestBody CustomerEntity customer){
-		customerService.updateById(customer);
-
-        return R.ok();
-    }
-
     /**
      * 删除
      */
+    @ResponseBody
     @RequestMapping("/delete")
-    //@RequiresPermissions("customer:customer:delete")
-    public R delete(@RequestBody Integer[] custIds){
-		customerService.removeByIds(Arrays.asList(custIds));
+    //@RequiresPermissions("admin:sysuser:delete")
+    public R delete(Integer custId){
+        customerService.removeById(custId);
+        return R.ok();
+    }
 
+    //来到客户添加页面
+    @GetMapping("/add")
+    public String toAddPage(){
+        return "/customer/add";
+    }
+
+    //客户添加
+    @ResponseBody
+    @PostMapping("/add")
+    public R addcustomer(@Validated(AddGroup.class) @RequestBody CustomerEntity customer){
+        customerService.save(customer);
+        return R.ok();
+    }
+
+    //来到员工修改页面
+    @GetMapping("/edit")
+    public String toEditPage(Integer custId,Model model){
+        CustomerEntity customer =  customerService.queryByUserId(custId);
+        model.addAttribute("customer",customer);
+        return "/customer/edit";
+    }
+
+    //员工修改
+    @ResponseBody
+    @PostMapping("/edit")
+    public R editCustomer(@Validated(UpdateGroup.class) @RequestBody CustomerEntity customer){
+        customerService.updateById(customer);
         return R.ok();
     }
 

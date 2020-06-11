@@ -62,9 +62,9 @@
                         <a href="#">系统</a>
                     </li>
                     <li>
-                        <a th:href="@{lst}">管理员管理</a>
+                        <a th:href="@{lst}">客户管理</a>
                     </li>
-                    <li class="active">添加管理员</li>
+                    <li class="active">添加客户</li>
                 </ul>
             </div>
             <!-- /Page Breadcrumb -->
@@ -76,72 +76,69 @@
                     <div class="col-lg-12 col-sm-12 col-xs-12">
                         <div class="widget">
                             <div class="widget-header bordered-bottom bordered-blue">
-                                <span class="widget-caption">新增管理员</span>
+                                <span class="widget-caption">新增客户</span>
                             </div>
                             <div class="widget-body">
                                 <div id="horizontal-form">
                                     <!-- 异步提交表单  -->
                                     <form class="form-horizontal" role="form" onsubmit="return false;">
                                         <div class="form-group">
-                                            <label for="userName"
-                                                   class="col-sm-2 control-label no-padding-right">管理员名称</label>
+                                            <label for="custName"
+                                                   class="col-sm-2 control-label no-padding-right">客户名称</label>
                                             <div class="col-sm-6">
-                                                <input class="form-control" id="userName" placeholder="" name="userName"
+                                                <input class="form-control" id="custName" placeholder="" name="custName"
                                                        
                                                        type="text">
                                             </div>
                                             <p class="help-block col-sm-4 red">* 必填</p>
                                         </div>
+
                                         <div class="form-group">
-                                            <label for="userPassword"
-                                                   class="col-sm-2 control-label no-padding-right">管理员密码</label>
+                                            <label for="custSource"
+                                                   class="col-sm-2 control-label no-padding-right">客户来源</label>
                                             <div class="col-sm-6">
-                                                <input class="form-control" placeholder="" id="userPassword"  name="userPassword"
-                                                       type="password">
+                                                <input class="form-control" placeholder="" id="custSource"  name="custSource"
+                                                       type="text">
                                             </div>
                                             <p class="help-block col-sm-4 red">* 必填</p>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="confirmPas"
-                                                   class="col-sm-2 control-label no-padding-right">确认密码</label>
+                                            <label for="custIndustry"
+                                                   class="col-sm-2 control-label no-padding-right">客户所属行业</label>
                                             <div class="col-sm-6">
-                                                <input class="form-control" placeholder=""  name="confirmPas" id="confirmPas"
-                                                       type="password">
+                                                <input class="form-control" placeholder="" id="custIndustry"  name="custIndustry"
+                                                       type="text">
                                             </div>
                                             <p class="help-block col-sm-4 red">* 必填</p>
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label no-padding-right">头像</label>
+                                            <label for="custLinkman"
+                                                   class="col-sm-2 control-label no-padding-right">联系人</label>
                                             <div class="col-sm-6">
-                                                <label id="sc">
-                                                    <span id="uploadify"></span>
-
-                                                    <div class="file-box">
-                                                        <input type="file" value="" name="file" id="input_file"
-                                                               accept="image/gif,image/jpeg,image/jpg,image/png,image/svg"
-                                                               onchange="imgPreview(this,0)">
-                                                    </div>
-
-                                                    <!-- 隐藏域提交缩略图地址 只针对add，edit中不会提交这个字段-->
-                                                    <input id="thumb" name="thumb"  value="" type="hidden">
-                                                </label>
-                                                <label>
-                                                    <div id="cancel" style="float:left;"
-                                                         class="uploadify-button btn btn-azure">
-                                                        <span class="uploadify-button-text"><i
-                                                                style="padding-right:4px;"
-                                                                class="fa fa-rotate-left"></i>撤销上传</span>
-                                                    </div>
-                                                </label>
+                                                <input class="form-control" placeholder="" id="custLinkman"  name="custLinkman"
+                                                       type="text">
                                             </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
                                         </div>
-                                        <div class="form-group" id="imgdiv" style="display:none;">
-                                            <label class="col-sm-2 control-label no-padding-right"></label>
+
+                                        <div class="form-group">
+                                            <label for="custMobile"
+                                                   class="col-sm-2 control-label no-padding-right">手机</label>
                                             <div class="col-sm-6">
-                                                <label id="litpic">
-                                                </label>
+                                                <input class="form-control" placeholder="" id="custMobile"  name="custMobile"
+                                                       type="text">
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="custAddress"
+                                                   class="col-sm-2 control-label no-padding-right">联系地址</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" placeholder="" id="custAddress"  name="custAddress"
+                                                       type="text">
                                             </div>
                                             <p class="help-block col-sm-4 red">* 必填</p>
                                         </div>
@@ -171,117 +168,23 @@
 <!--Beyond Scripts-->
 <script th:src="@{admin/style/beyond.js}"></script>
 
-<script type="text/javascript">
-    let uploadObj; // 上传凭证对象
-    let verifyImg; //上传之后的图片oss地址
-    function imgPreview(fileDom, i) {
-        var time = (new Date()).valueOf();
-        // 获取上传凭证
-        $.ajax({
-            url: '/thirdparty/oss/policy', // 这里是请求的后台通过oss上传凭证的接口
-            data: JSON.stringify({
-                data: ''
-            }),
-            dataType: 'json',
-            type: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            success: function (response) {
-                uploadObj = response.data;
-                // 获取到上传凭证成功之后 封装请求的数据
-                let request = new FormData();
-                request.append("OSSAccessKeyId", uploadObj.accessid); //Bucket 拥有者的Access Key Id。
-                request.append("policy", uploadObj.policy); //policy规定了请求的表单域的合法性
-                request.append("Signature", uploadObj.signature); //根据Access Key Secret和policy计算的签名信息，OSS验证该签名信息从而验证该Post请求的合法性
-                //---以上都是阿里的认证策略
-                let file = document.getElementById("input_file").files[0];
-                if (!file) {
-                    return;
-                }
-                request.append("key", `${uploadObj.dir}`+time+`${file.name}`); //文件名字，可设置路径
-                request.append("success_action_status", '200'); // 让服务端返回200,不然，默认会返回204
-                request.append('file', file); //需要上传的文件 file
-                $.ajax({
-                    url: uploadObj.host, //上传阿里地址
-                    data: request,
-                    processData: false, //默认true，设置为 false，不需要进行序列化处理
-                    cache: false, //设置为false将不会从浏览器缓存中加载请求信息
-                    async: false, //发送同步请求
-                    contentType: false, //避免服务器不能正常解析文件---------具体的可以查下这些参数的含义
-                    dataType: 'json', //不涉及跨域  写json即可
-                    type: 'post',
-                    success: function (response) { //callbackHost：success,request中就是 回调的一些信息，包括状态码什么的
-                        // console.log(response);
-                    },
-                    error: function (error) {
-                        verifyImg = `${uploadObj.host}/${uploadObj.dir}`+time+`${file.name}`;
-                        verifyImg1 = `${uploadObj.dir}`+time+`${file.name}`;
-                        layer.msg('上传成功！', {icon: 1});
-                        $("input[name='thumb']").val(verifyImg1);//不要完整的路径
-                        var imgsrc=verifyImg;
-                        var img="<img height='100' src='"+imgsrc+"'>";
-                        $("#imgdiv").show();
-                        $("#litpic").html(img);//会进行覆盖
-                        $("#sc").hide();
-                    }
-                });
-            },
-            error: function (error) {
-                console.log(error);
-            },
-        });
-    }
-</script>
-
-<script>
-    //有图片时：必须先删除才能上传新的图片
-    if ($("input[name='thumb']").val()) {
-        $("#sc").hide();//隐藏上传图片按钮
-    }
-    $("#cancel").click(function () {
-        var imgurl = $("input[name='thumb']").val();
-        if (!imgurl) {
-            layer.msg('请先上传图片！', {icon: 2});
-            return false;
-        }
-        layer.confirm('确定要撤销图片吗？', {icon: 3, title: '提示'}, function (index) {
-            $("#imgdiv").hide();
-            $("input[name='thumb']").val('');
-            $.ajax({
-                type: "post",
-                dataType: "json",
-                data: {imgurl: imgurl, userId: 0},
-                url: "delimg",
-                success: function (data) {
-                    if (data.data.res == 1) {
-                        layer.msg('撤销成功！', {icon: 1});
-                        $("#sc").show();//显示上传图片按钮
-                    } else {
-                        layer.msg('撤销失败！', {icon: 2});
-                    }
-                }
-            });
-            layer.close(index);
-        });
-
-    });
-</script>
-
 <!--异步提交表单-->
 <script>
 function submitForm() {
-    var userName = $("#userName").val();
-    var userPassword = $("#userPassword").val();
-    var confirmPas = $("#confirmPas").val();
-    var thumb = $("#thumb").val();
+    var custName = $("#custName").val();
+    var custSource = $("#custSource").val();
+    var custIndustry = $("#custIndustry").val();
+    var custLinkman = $("#custLinkman").val();
+    var custMobile = $("#custMobile").val();
+    var custAddress = $("#custAddress").val();
 
     $.ajax({
         type: 'POST',
         dataType: 'json',
         contentType: 'application/json; charset=UTF-8',
-        data: JSON.stringify({"userName": userName,"userPassword":userPassword,
-            "confirmPas":confirmPas,"thumb":thumb}),
+        data: JSON.stringify({"custName": custName,"custSource":custSource,
+            "custIndustry":custIndustry,"custLinkman":custLinkman
+            ,"custMobile":custMobile,"custAddress":custAddress}),
         url: "add",
         success: function (data) {
             //根据返回的状态码来判断
@@ -295,7 +198,7 @@ function submitForm() {
                 layer.msg(info, {icon: 2});
             }else{
                 //成功跳转到lst页面
-                window.location = "http://localhost:88/admin/lst";
+                window.location = "http://localhost:88/customer/lst";
             }
         }
     });

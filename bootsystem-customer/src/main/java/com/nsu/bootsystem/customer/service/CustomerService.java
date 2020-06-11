@@ -21,5 +21,7 @@ public interface CustomerService extends IService<CustomerEntity> {
     ArrayList<String> queryCustSource();
 
     ArrayList<String> queryCustIndustry();
+
+    CustomerEntity queryByUserId(Integer userId);
 }
 

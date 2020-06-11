@@ -26,6 +26,9 @@
     <select id="queryCustIndustry" resultType="java.lang.String">
         SELECT distinct  cust_industry FROM `customer`
     </select>
+    <select id="queryByUserId" resultType="com.nsu.bootsystem.customer.entity.CustomerEntity">
+        select * from customer where cust_id = #{userId}
+    </select>
 
 
 </mapper>

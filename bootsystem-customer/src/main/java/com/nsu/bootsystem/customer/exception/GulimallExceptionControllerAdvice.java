@@ -15,9 +15,7 @@ import java.util.Map;
  * 集中处理所有异常
  */
 @Slf4j
-//@ResponseBody
-//@ControllerAdvice(basePackages = "com.atguigu.gulimall.product.controller")
-@RestControllerAdvice(basePackages = "com.atguigu.gulimall.product.controller")
+@RestControllerAdvice(basePackages = "com.nsu.bootsystem.customer.controller")
 public class GulimallExceptionControllerAdvice {
 
     //1、处理精确类型的异常
@@ -35,7 +33,6 @@ public class GulimallExceptionControllerAdvice {
     //2、处理任意类型的异常【就是不属于1的异常】
     @ExceptionHandler(value = Throwable.class)
     public R handleException(Throwable throwable){
-
         log.error("错误：",throwable);
         return R.error(BizCodeEnume.UNKNOW_EXCEPTION.getCode(),BizCodeEnume.UNKNOW_EXCEPTION.getMsg());
     }
