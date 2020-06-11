@@ -19,7 +19,7 @@ import org.springframework.util.StringUtils;
 @Service("customerService")
 public class CustomerServiceImpl extends ServiceImpl<CustomerDao, CustomerEntity> implements CustomerService {
 
-    @Override 
+    @Override
     public PageUtils queryPage(Map<String, Object> params,String custName,String custSource,String custIndustry) {
 
         QueryWrapper<CustomerEntity> queryWrapper = new QueryWrapper<>();
