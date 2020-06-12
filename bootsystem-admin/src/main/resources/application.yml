@@ -4,6 +4,9 @@ spring:
     password: 110123
     url: jdbc:mysql://localhost:3306/boot_crm?useSSL=false&useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
+  reids:
+    host: 192.168.0.102
+    port: 6379
   cloud:
     nacos:
       discovery:

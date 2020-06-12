@@ -1,17 +1,16 @@
 package com.nsu.bootsystem.admin.service.impl;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springframework.stereotype.Service;
-import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.nsu.common.utils.PageUtils;
-import com.nsu.common.utils.Query;
-
 import com.nsu.bootsystem.admin.dao.SysUserDao;
 import com.nsu.bootsystem.admin.entity.SysUserEntity;
 import com.nsu.bootsystem.admin.service.SysUserService;
+import com.nsu.common.utils.PageUtils;
+import com.nsu.common.utils.Query;
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 
 @Service("sysUserService")
@@ -49,7 +48,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
     }
 
     @Override
-    public boolean checkAccount(String userName) {
+    public Boolean checkAccount(String userName) {
         return baseMapper.checkAccount(userName);
     }
 

@@ -1,10 +1,9 @@
 package com.nsu.bootsystem.admin.dao;
 
-import com.nsu.bootsystem.admin.entity.SysUserEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.nsu.bootsystem.admin.entity.SysUserEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * 
@@ -24,5 +23,5 @@ public interface SysUserDao extends BaseMapper<SysUserEntity> {
 
     void updateThumb(Integer userId,String thumb);
 
-    boolean checkAccount(String userName);
+    Boolean checkAccount(String userName);
 }

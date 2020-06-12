@@ -25,6 +25,6 @@ public interface SysUserService extends IService<SysUserEntity> {
 
     void updateThumb(Integer userId,String thumb);
 
-    boolean checkAccount(String userName);
+    Boolean checkAccount(String userName);
 }
 
