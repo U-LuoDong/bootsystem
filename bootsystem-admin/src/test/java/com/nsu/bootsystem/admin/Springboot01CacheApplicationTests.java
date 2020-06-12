@@ -1,5 +1,6 @@
 package com.nsu.bootsystem.admin;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,14 +22,14 @@ public class Springboot01CacheApplicationTests {
 	 *  stringRedisTemplate.opsForHash()[Hash（散列）]
 	 *  stringRedisTemplate.opsForZSet()[ZSet（有序集合）]
 	 */
-//	@Test
-//	public void test01(){
+	@Test
+	public void test01(){
 //		//给redis中保存数据
 //	    stringRedisTemplate.opsForValue().append("msg","hello");
 //		String msg = stringRedisTemplate.opsForValue().get("msg");
 //		System.out.println(msg);
-//
-////		stringRedisTemplate.opsForList().leftPush("mylist","1");
-////		stringRedisTemplate.opsForList().leftPush("mylist","2");
-//	}
+
+//		stringRedisTemplate.opsForList().leftPush("mylist","1");
+//		stringRedisTemplate.opsForList().leftPush("mylist","2");
+	}
 }

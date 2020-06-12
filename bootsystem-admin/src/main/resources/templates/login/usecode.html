@@ -18,7 +18,7 @@
 
 
     <div class="login_2">
-        <form onsubmit="return check()" th:action="@{useCodeRes}" method="post"><!--action为空，默认提交表单到本页面（本方法）-->
+        <form onsubmit="return check()" th:action="@{useCodeRes}" method="POST"><!--action为空，默认提交表单到本页面（本方法）-->
             <p>账号</p>
             <P><input type="text" id="txt_1" placeholder="请输入您的手机号" onblur="checkemail()" name="userName" class="txt"><span
                     id="txt_1info"></span></P>

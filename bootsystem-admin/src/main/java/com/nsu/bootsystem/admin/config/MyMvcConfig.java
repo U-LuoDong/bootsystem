@@ -14,7 +14,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
         // 自定义拦截器，添加拦截路径和排除拦截路径
         registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
                 .excludePathPatterns("/login","/loginRes","/useCode","/getVerify"
-                        ,"/getImgCode","/checkAccount","/getTelCode"
+                        ,"/getImgCode","/checkAccount","/getTelCode","/useCodeRes"
                         ,"/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg",
                         "/**/*.jpeg", "/**/fonts/*");
 //                .excludePathPatterns("/login","/static/**");
