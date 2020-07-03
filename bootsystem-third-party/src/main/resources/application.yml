@@ -4,7 +4,7 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
     alicloud:
-      #删除access-key和secret-key 不传到git上
+      #删除access-key和secret-key 不传到git上 【可以在Java框架课程项目中找到】
       access-key:
       secret-key:
       oss:
