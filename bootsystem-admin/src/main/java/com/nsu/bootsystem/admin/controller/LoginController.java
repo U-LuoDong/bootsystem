@@ -155,8 +155,9 @@ public class LoginController {
     @PostMapping(value = "/getTelCode")
     public Integer getTelCode(String userName) {
 
-        String accessKeyId = "LTAI4GF8ubxDep1zmRoyGZju";
-        String accessSecret ="DwTqymY3jNhePkSw9M6vppSkHrhWIg";
+        //删除 为了不上传到git上
+        String accessKeyId = "";
+        String accessSecret ="";
 
         int max=9999;
         int min=1000;
